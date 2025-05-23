@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthState>()(
                    password,
                     options: {
                         data: { username },
-                        redirectTo: 'https://ophelia.vercel.app/signin', 
+                        redirectTo: 'https://ophelia-gules.vercel.app/signin', 
                  },
           });
           
