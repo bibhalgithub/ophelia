@@ -31,9 +31,10 @@ export const useAuthStore = create<AuthState>()(
           const { data, error } = await supabase.auth.signUp({
                      email,
                    password,
-                   options: {
-                   data: { username }, // ✅ Pass username as user_metadata
-                    },
+                    options: {
+                        data: { username },
+                        redirectTo: 'https://ophelia.vercel.app/signin', 
+                 },
           });
           
           if (error) throw error;
