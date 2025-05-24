@@ -1,3 +1,4 @@
+You said:
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ShoppingBag } from 'lucide-react';
@@ -8,28 +9,27 @@ import Button from '../../components/ui/Button';
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
   const { signUp, isLoading, error } = useAuthStore();
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-
+  
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-
+  
   const [formErrors, setFormErrors] = useState({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-
+    
     // Clear the error when user starts typing
     if (formErrors[e.target.name as keyof typeof formErrors]) {
       setFormErrors({
@@ -38,16 +38,16 @@ const SignUp: React.FC = () => {
       });
     }
   };
-
+  
   const validateForm = () => {
     let valid = true;
     const newErrors = { ...formErrors };
-
+    
     if (!formData.username.trim()) {
       newErrors.username = 'Username is required';
       valid = false;
     }
-
+    
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
       valid = false;
@@ -55,7 +55,7 @@ const SignUp: React.FC = () => {
       newErrors.email = 'Email is invalid';
       valid = false;
     }
-
+    
     if (!formData.password) {
       newErrors.password = 'Password is required';
       valid = false;
@@ -63,53 +63,31 @@ const SignUp: React.FC = () => {
       newErrors.password = 'Password must be at least 6 characters';
       valid = false;
     }
-
+    
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
       valid = false;
     }
-
+    
     setFormErrors(newErrors);
     return valid;
   };
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (!validateForm()) return;
-
+    
     try {
       await signUp(formData.email, formData.password, formData.username);
-      setShowSuccessModal(true);
+      navigate('/signin');
     } catch (err) {
       console.error('Registration error:', err);
     }
   };
-
+  
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      {/* ✅ Success Modal */}
-      {showSuccessModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-md max-w-sm text-center">
-            <h2 className="text-lg font-semibold text-gray-800 mb-2">Verify Your Email</h2>
-            <p className="text-sm text-red-600 mb-4">
-              If your email is valid, please check your mailbox for a confirmation link. After verifying/clicking, return and log in to your account.
-            </p>
-            <Button
-              onClick={() => {
-                setShowSuccessModal(false);
-                navigate('/signin');
-              }}
-              variant="primary"
-              fullWidth
-            >
-              OK
-            </Button>
-          </div>
-        </div>
-      )}
-
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <ShoppingBag className="h-12 w-12 text-emerald-600" />
@@ -132,7 +110,7 @@ const SignUp: React.FC = () => {
               {error}
             </div>
           )}
-
+          
           <form className="space-y-6" onSubmit={handleSubmit}>
             <Input
               id="username"
@@ -145,7 +123,7 @@ const SignUp: React.FC = () => {
               error={formErrors.username}
               required
             />
-
+            
             <Input
               id="email"
               name="email"
@@ -157,7 +135,7 @@ const SignUp: React.FC = () => {
               error={formErrors.email}
               required
             />
-
+            
             <Input
               id="password"
               name="password"
@@ -169,7 +147,7 @@ const SignUp: React.FC = () => {
               error={formErrors.password}
               required
             />
-
+            
             <Input
               id="confirmPassword"
               name="confirmPassword"
@@ -181,11 +159,7 @@ const SignUp: React.FC = () => {
               error={formErrors.confirmPassword}
               required
             />
-
-            <p className="mt-2 text-center text-sm text-red-600">
-              AFTER CREATING, PLEASE CHECK YOUR EMAIL FOR A CONFIRMATION LINK
-            </p>
-
+            
             <div>
               <Button
                 type="submit"
@@ -202,5 +176,4 @@ const SignUp: React.FC = () => {
     </div>
   );
 };
-
-export default SignUp;
+export default SignUp;
