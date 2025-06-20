@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Menu, X } from 'lucide-react';
+import {  Menu, X } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import Button from '../ui/Button';
+import myBrandLogo from '/logo 3.png';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -23,10 +24,10 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center">
-              <ShoppingBag className="h-8 w-8 text-emerald-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">Ophelia</span>
-            </Link>
+           <Link to="/" className="flex items-center gap-2">
+             <img src={myBrandLogo} alt="Ophelia Brand Logo" className="w-9 h-7" />
+             <span className="text-xl font-bold text-black-700">OPHELIA</span>
+           </Link>
           </div>
           
           {/* Desktop navigation */}
