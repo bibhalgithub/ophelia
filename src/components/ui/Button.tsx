@@ -26,8 +26,8 @@ const Button: React.FC<ButtonProps> = ({
   const baseStyles = 'rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantStyles = {
-    primary: 'bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500',
-    secondary: 'bg-amber-600 text-white hover:bg-amber-700 focus:ring-amber-500',
+    primary: 'bg-green-500 text-white hover:bg-green-600 focus:ring-emerald-500',
+    secondary: 'bg-white text-green-500 border border-green-500 hover:bg-green-50 focus:ring-amber-500',
     outline: 'border border-gray-300 bg-transparent text-gray-700 hover:bg-gray-50 focus:ring-gray-500',
     ghost: 'bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-500',
     danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
