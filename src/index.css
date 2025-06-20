@@ -1,18 +1,160 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* --- Base Fade In Animation (for Hero Section text) --- */
+/* This animation is used for elements that appear as soon as the page loads. */
 @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Slightly moves up while fading in */
   }
-  
-  .fade-in {
-    animation: fadeIn 1s ease-in-out forwards;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards; /* 'forwards' keeps the end state */
+}
+
+.animate-fade-in-delayed {
+  animation: fadeIn 1s ease-out 0.5s forwards; /* Starts 0.5s after .animate-fade-in, use 'forwards' */
+  opacity: 0; /* Ensures it's hidden before animation starts */
+}
+
+.animate-fade-in-delayed-more {
+  animation: fadeIn 1s ease-out 1s forwards; /* Starts 1s after .animate-fade-in, use 'forwards' */
+  opacity: 0; /* Ensures it's hidden before animation starts */
+}
+
+/* --- Slide In Left Animation (for Why Ophelia section) --- */
+/* This animation is triggered by JavaScript when the element scrolls into view. */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%); /* Start completely off-screen to the left */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Initial state: element is hidden and positioned to the left */
+.slide-in-left-initial {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 0.5s ease-out; /* Add transition for a smooth reveal */
+}
+
+/* Active state: triggered by JavaScript when element is visible */
+.slide-in-left-active {
+  animation: slideInLeft 1s ease-out forwards;
+}
+
+/* --- Slide In Up Animation (for How It Works steps) --- */
+/* This animation is triggered by JavaScript when each step scrolls into view. */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial state: element is hidden and positioned below */
+.slide-in-up-initial {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease-out; /* Add transition for a smooth reveal */
+}
+
+/* Active state: triggered by JavaScript when element is visible */
+.slide-in-up-active {
+  animation: slideInUp 1s ease-out forwards;
+}
+
+/* --- Benefit Card Animation (for the cards in BenefitSection) --- */
+/* This animation is triggered by JavaScript for a staggered fade-in. */
+
+
+/* --- Custom Carousel Animation (for Hero Section images) --- */
+/* This animation controls the opacity for image cycling. */
+@keyframes carousel {
+  0% { opacity: 1; }
+  33% { opacity: 1; } /* Visible for first third of cycle */
+  34% { opacity: 0; } /* Start fading out */
+  66% { opacity: 0; } /* Hidden for middle third of cycle */
+  67% { opacity: 0; } /* Still hidden */
+  100% { opacity: 1; } /* Fade back in for the start of the next cycle */
+}
+
+/* Apply to direct children of the carousel container */
+.animate-carousel > * {
+  animation: carousel 15s infinite;
+}
+
+/* Apply delay to specific children for staggered effect */
+.animate-carousel > *:nth-child(2) {
+  animation-delay: 5s;
+}
+
+.animate-carousel > *:nth-child(3) {
+  animation-delay: 10s;
+}
+
+/* In your main CSS file, e.g., index.css or global.css */
+
+
+
+
+/* Add this to your main CSS file (e.g., src/index.css or src/global.css) */
+
+.image-scroll-container-horizontal {
+  animation: scroll-horizontal 20s linear infinite;
+  width: max-content; /* Let it grow naturally */
+}
+
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-80%);
+  }
+}
+
+.image-scroll-container-horizontal:hover {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .image-item-horizontal img {
+   
+  }
+
+  .image-scroll-container-horizontal {
+    animation-duration: 15s;
+  }
+}
+
+
+
+
+/* For the Benefit (now Capabilities) Cards */
+.capability-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* For the Vision/Mission Cards */
+.vision-mission-card.is-visible { /* Add this if VisionMission cards also use this animation */
+    opacity: 1;
+    transform: translateY(0);
+}
+
